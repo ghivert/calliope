@@ -2,7 +2,7 @@ const Electron = require('electron')
 
 var mainWindow = null
 
-var _ghivert$calliope$Native_BrowserWindow = function () {
+var _ghivert$debussy$Native_BrowserWindow = function () {
 
   function create(browserWindow) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
