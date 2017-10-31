@@ -1,7 +1,7 @@
-module MainProcess exposing (..)
+module Process exposing (..)
 
 import Electron
-import Electron.BrowserWindow
+-- import Electron.BrowserWindow
 
 type alias Model = Int
 
@@ -15,13 +15,14 @@ main =
 
 init : (Model, Cmd msg)
 init =
-  0 !
-    [ Electron.BrowserWindow.open "index.html"
-      [ ("width", "100px")
-      , ("height", "100px")
-      , ("show", "false")
-      ]
-    ]
+  Debug.log "Hello from Main Process in Elm!" 0 ! []
+  -- 0 !
+  --   [ Electron.BrowserWindow.open "index.html"
+  --     [ ("width", "100px")
+  --     , ("height", "100px")
+  --     , ("show", "false")
+  --     ]
+  --   ]
 
 update : a -> b -> ( b, Cmd msg )
 update msg model =

@@ -1,4 +1,4 @@
-module Electron.BrowserWindow exposing (..)
+module Electron.BrowserWindow exposing (BrowserWindow, open)
 
 import Color exposing (Color)
 import Dict exposing (Dict)
@@ -11,12 +11,20 @@ type alias BrowserWindow =
   , coordinates : Maybe { x : Int, y : Int }
   }
 
+defaultBrowserWindow : BrowserWindow
+defaultBrowserWindow =
+  BrowserWindow Nothing Nothing Nothing Nothing
+
+new : BrowserWindow -> Cmd msg
+new =
+  Native.BrowserWindow.new
+
 open : String -> List (String, String) -> Cmd msg
 open url options =
   options
     |> Dict.fromList
-    |> convertOptions
-    |> Native.BrowserWindow.new
+    |> flip convertOptions defaultBrowserWindow
+    |> new
 
 convertOptions : Dict String String -> BrowserWindow -> BrowserWindow
 convertOptions options browserWindow =
