@@ -17,12 +17,16 @@ init : (Model, Cmd msg)
 init =
   0 !
     [ Electron.BrowserWindow.open "file:///Users/doctor/Workspace/calliope/src/static/index.html"
-      [ ("width", "100")
-      , ("height", "100")
-      , ("show", "false")
+      [ ("width", "1000")
+      , ("height", "700")
+      , ("show", "true")
+      -- , ("transparent", "true")
+      -- , ("frame", "false")
+      -- , ("titleBarStyle", "hiddenInset")
+      , ("vibrancy", "selection")
       ]
     ]
-
+-- appearance-based, light, dark, titlebar, selection, menu, popover, sidebar, medium-light or ultra-dark
 update : a -> b -> ( b, Cmd msg )
 update msg model =
   model ! []

@@ -13,6 +13,10 @@ type alias BrowserWindow =
   , backgroundColor : Maybe Color
   , coordinates : Maybe { x : Int, y : Int }
   , show : Maybe Bool
+  , transparent : Maybe Bool
+  , frame : Maybe Bool
+  , titleBarStyle : Maybe String
+  , vibrancy : Maybe String
   }
 
 cmdMap : (a -> b) -> MyCmd a -> MyCmd b

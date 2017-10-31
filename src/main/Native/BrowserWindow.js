@@ -15,7 +15,7 @@ var _ghivert$calliope$Native_BrowserWindow = function () {
   }
 
   function createWindow(browserWindow) {
-    mainWindow = new Electron.BrowserWindow()
+    mainWindow = new Electron.BrowserWindow(computeOptions(browserWindow))
     mainWindow.loadURL(browserWindow.url)
     return mainWindow
   }
@@ -36,6 +36,18 @@ var _ghivert$calliope$Native_BrowserWindow = function () {
     }
     if (browserWindow.show.ctor == 'Just') {
       options.show = browserWindow.show._0
+    }
+    if (browserWindow.transparent.ctor == 'Just') {
+      options.transparent = browserWindow.transparent._0
+    }
+    if (browserWindow.frame.ctor == 'Just') {
+      options.frame = browserWindow.frame._0
+    }
+    if (browserWindow.titleBarStyle.ctor == 'Just') {
+      options.titleBarStyle = browserWindow.titleBarStyle._0
+    }
+    if (browserWindow.vibrancy.ctor == 'Just') {
+      options.vibrancy = browserWindow.vibrancy._0
     }
     return options
   }
