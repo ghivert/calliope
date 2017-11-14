@@ -16,7 +16,7 @@ main =
 init : (Model, Cmd msg)
 init =
   0 !
-    [ Electron.BrowserWindow.open "file:///Users/doctor/Workspace/calliope/src/static/index.html"
+    [ Electron.BrowserWindow.open "file:///Users/doctor/Workspace/debussy/src/static/index.html"
       [ ("width", "1000")
       , ("height", "700")
       , ("show", "true")
