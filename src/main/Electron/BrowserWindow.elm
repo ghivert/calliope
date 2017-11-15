@@ -4,7 +4,7 @@ import Electron.BrowserWindow.Shared as BrowserWindow
 import Dict exposing (Dict)
 import ParseInt as Parse
 import Effects
-import Maybe.Extra.Infix exposing ((=<<))
+import Maybe.Extra.Infix exposing ((>>=))
 import Color exposing (Color)
 import Color.Convert
 
@@ -27,15 +27,15 @@ open url options =
 createBrowserWindow : String -> Dict String String -> BrowserWindow
 createBrowserWindow url options =
   BrowserWindow.BrowserWindow url
-    (parseInt =<< Dict.get "width" options)
-    (parseInt =<< Dict.get "height" options)
-    (parseColor =<< Dict.get "backgroundColor" options)
-    (parseCoordinates =<< Dict.get "coordinates" options)
-    (parseBool =<< Dict.get "show" options)
-    (parseBool =<< Dict.get "transparent" options)
-    (parseBool =<< Dict.get "frame" options)
-    (parseTitleBarStyle =<< Dict.get "titleBarStyle" options)
-    (parseVibrancy =<< Dict.get "vibrancy" options)
+    (Dict.get "width" options >>= parseInt)
+    (Dict.get "height" options >>= parseInt)
+    (Dict.get "backgroundColor" options >>= parseColor)
+    (Dict.get "coordinates" options >>= parseCoordinates)
+    (Dict.get "show" options >>= parseBool)
+    (Dict.get "transparent" options >>= parseBool)
+    (Dict.get "frame" options >>= parseBool)
+    (Dict.get "titleBarStyle" options >>= parseTitleBarStyle)
+    (Dict.get "vibrancy" options >>= parseVibrancy)
 
 parseInt : String -> Maybe Int
 parseInt =
