@@ -39,12 +39,12 @@ view model =
 
 mainView : Model -> Html Msg
 mainView model =
-  Html.div [] []
+  Html.div [ Html.Attributes.class "full white main-panel" ] []
 
 readingView : Model -> Html Msg
 readingView model =
-  Html.div [] []
+  Html.div [ Html.Attributes.class "full light-grey reading-panel" ] []
 
 playQueueView : Model -> Html Msg
 playQueueView model =
-  Html.div [] []
+  Html.div [ Html.Attributes.class "full blue play-queue-panel" ] []

@@ -1,4 +1,155 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'The Sans';
   background-color: rgba(255, 255, 255, 0.0);
+  min-width: 100vw;
+  min-height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#main {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.layout {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 250px 1fr 200px;
+  grid-template-rows: 8fr 1fr;
+}
+
+.navbar {
+  grid-column: 1 / 1;
+  grid-row: 1 / -1;
+  background-color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+
+  .huge-padding {
+    padding: 12px;
+    flex: 1;
+
+    h1 {
+      color: rgba(164, 167, 170, 0.9);
+      text-transform: uppercase;
+      font-size: 0.7em;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .wrapper {
+      padding-top: 6px;
+      padding-bottom: 12px;
+
+      .card {
+        background-color: white;
+        border-radius: 3px;
+        padding: 6px 12px;
+        margin: 18px 2px;
+        font-family: 'Source Sans Pro', sans-serif;
+        line-height: 1.6em;
+        color: rgba(180, 180, 180, 1);
+        font-weight: 700;
+        letter-spacing: 1px;
+
+        .number {
+          font-family: 'Open Sans', sans-serif;
+        }
+
+        .text {
+          font-size: 0.7em;
+        }
+      }
+
+      .active {
+        background-color: #2D59FE;
+        color: white;
+        box-shadow: 0px 1px 1px 0px rgba(16,33,210,0.76);
+      }
+    }
+
+
+    .chooser {
+      padding: 6px 0;
+      font-weight: 600;
+      color: rgb(75, 75, 75);
+      font-size: 0.8em;
+
+      &:first-child {
+        padding-top: 12px;
+      }
+
+      &:last-child {
+        padding-bottom: 24px;
+      }
+    }
+  }
+
+  .cover-image {
+    img {
+      border-radius: 5px;
+      max-width: 100%;
+      display: block;
+    }
+  }
+}
+
+.main-panel {
+  grid-column: 2 / 2;
+  grid-row: 1 / 1;
+}
+
+.reading-panel {
+  grid-column: 2 / 2;
+  grid-row: 2 / 2;
+  border-top: 1px solid rgb(242, 242, 242);
+}
+
+.play-queue-panel {
+  grid-column: 3 / 3;
+  grid-row: 1 / -1;
+}
+
+.full {
+  width: 100%;
+  height: 100%;
+}
+
+.grey {
+  background-color: rgba(85, 85, 85, 1);
+}
+
+.grey-text {
+  color: rgb(150, 150, 150);
+}
+
+.padding-right {
+  padding-right: 12px;
+}
+
+.light-grey {
+  background-color: rgba(250, 250, 250, 1);
+}
+
+.white {
+  background-color: white;
+}
+
+.blue {
+  background-color: rgba(39, 48, 96, 0.6);
+}
+
+.row {
+  display: flex;
+  overflow: scroll;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
 }

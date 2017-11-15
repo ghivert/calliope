@@ -4,3 +4,4 @@ node_modules/
 dll/
 yarn-error.log
 dist/
+templates/
