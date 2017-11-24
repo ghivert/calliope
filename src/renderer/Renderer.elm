@@ -5,6 +5,7 @@ import Html.Attributes
 -- import Html.Events
 import Types exposing (..)
 import Navbar
+import Rocket exposing ((=>))
 
 main : Program Never Model Msg
 main =
@@ -17,7 +18,7 @@ main =
 
 init : (Model, Cmd Msg)
 init =
-  0 ! []
+  { playQueueDisplayed = False } ! []
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -38,13 +39,28 @@ view model =
     ]
 
 mainView : Model -> Html Msg
-mainView model =
-  Html.div [ Html.Attributes.class "full white main-panel" ] []
+mainView { playQueueDisplayed } =
+  Html.div
+    [ Html.Attributes.classList
+      [ "full white main-panel" => True
+      , "til-the-end" => not playQueueDisplayed
+      ]
+    ]
+    []
 
 readingView : Model -> Html Msg
-readingView model =
-  Html.div [ Html.Attributes.class "full light-grey reading-panel" ] []
+readingView { playQueueDisplayed } =
+  Html.div
+    [ Html.Attributes.classList
+      [ "full light-grey reading-panel" => True
+      , "til-the-end" => not playQueueDisplayed
+      ]
+    ]
+    []
 
 playQueueView : Model -> Html Msg
-playQueueView model =
-  Html.div [ Html.Attributes.class "full blue play-queue-panel" ] []
+playQueueView { playQueueDisplayed } =
+  if playQueueDisplayed then
+    Html.div [ Html.Attributes.class "full blue play-queue-panel" ] []
+  else
+    Html.text ""

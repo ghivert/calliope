@@ -1,5 +1,6 @@
 module Types exposing (..)
 
-type alias Model = Int
+type alias Model =
+  { playQueueDisplayed : Bool }
 
 type Msg = None

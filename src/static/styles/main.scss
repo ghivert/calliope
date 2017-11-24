@@ -63,6 +63,7 @@ body {
 
         .text {
           font-size: 0.7em;
+          white-space: nowrap;
         }
       }
 
@@ -73,20 +74,12 @@ body {
       }
     }
 
-
-    .chooser {
-      padding: 6px 0;
-      font-weight: 600;
-      color: rgb(75, 75, 75);
-      font-size: 0.8em;
-
-      &:first-child {
-        padding-top: 12px;
-      }
-
-      &:last-child {
-        padding-bottom: 24px;
-      }
+    .music {
+      padding: 12px 0 24px 0;
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      grid-template-rows: repeat(4, 1fr);
+      grid-gap: 12px;
     }
   }
 
@@ -97,6 +90,10 @@ body {
       display: block;
     }
   }
+}
+
+.til-the-end {
+  grid-column: 2 / -1 !important;
 }
 
 .main-panel {
