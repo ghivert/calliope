@@ -4,8 +4,6 @@ import Html exposing (Html)
 import Html.Attributes
 import Types exposing (..)
 import Rocket exposing ((=>))
-import Color
-import Color.Convert
 
 view : Model -> Html Msg
 view model =
@@ -83,12 +81,14 @@ musicLabel : Int -> String -> Html Msg
 musicLabel rowIn label =
   let row = toString rowIn in
   Html.div
-    [ Html.Attributes.style
+    [ Html.Attributes.class "dark-grey-text"
+    , Html.Attributes.style
       [ "grid-column" => "2 / 2"
       , "grid-row" => row ++ " / " ++ row
-      , "color" => (Color.rgb 75 75 75 |> Color.Convert.colorToCssRgb)
       , "font-weight" => "600"
-      , "font-size" => "0.8em"
+      , "font-size" => "0.8rem"
+      , "justify-self" => "left"
+      , "align-self" => "center"
       ]
     ]
     [ Html.text label ]
@@ -115,7 +115,19 @@ musicNavbar model =
 
 playlistsView : Model -> Html Msg
 playlistsView model =
-  Html.div [] [ Html.h1 [] [ Html.text "Playlists" ] ]
+  Html.div []
+    [ Html.h1 [] [ Html.text "Playlists" ]
+    , Html.div
+      [ Html.Attributes.class "playlists" ]
+      []
+    , Html.div
+      [ Html.Attributes.class "add-playlist" ]
+      [ Html.i
+        [ Html.Attributes.class "padding-right-medium fa fa-plus" ]
+        []
+      , Html.span [] [ Html.text "New playlist…" ]
+      ]
+    ]
 
 coverAlbumView : Model -> Html Msg
 coverAlbumView model =

@@ -1,0 +1,60 @@
+@import 'constants';
+
+.padding-right-medium {
+  padding-right: $medium;
+}
+
+$spacing-direction:
+  "top",
+  "right",
+  "bottom",
+  "left",
+  "horizontal",
+  "vertical",
+  "all";
+
+$spacing-size: (
+  gigantic: $gigantic,
+  huge: $huge,
+  xlarge: $xlarge,
+  large: $large,
+  medium: $medium,
+  small: $small,
+  xsmall: $xsmall,
+  tiny: $tiny,
+  xtiny: $xtiny,
+  xxtiny: $xxtiny,
+  xxxtiny: $xxxtiny
+);
+
+@function get-spacer-selector($direction) {
+  @if $direction == "all" {
+    @return ""
+  } @else if $direction == "horizontal" {
+    @return ""
+  } @else if $direction == "vertical" {
+    @return ""
+  } @else {
+    @return "-#{$direction}"
+  };
+};
+
+@function get-spacer-value($direction) {
+  @if $direction == "all" {
+    .#{$spacer}-#{$direction}-#{$size-name} {
+      #{$spacer}#{get-spacer-selector($direction)}: #{$size-value};
+    }
+  }
+}
+
+@mixin spacers {
+  @each $spacer in "padding", "margin" {
+    @each $direction in $spacing-direction {
+      @each $size-name, $size-value in $spacing-size {
+        @return get-spacer-value($direction);
+      }
+    }
+  }
+}
+
+@include spacers;
