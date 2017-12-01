@@ -2,7 +2,8 @@ module Renderer exposing (..)
 
 import Html exposing (Html)
 import Html.Attributes
-import Html.Events
+-- import Html.Events
+import Html.Extra
 import Rocket exposing ((=>))
 import Update.Extra as Update
 import Types exposing (..)
@@ -71,4 +72,4 @@ playQueueView { playQueueDisplayed } =
   if playQueueDisplayed then
     Html.div [ Html.Attributes.class "full blue play-queue-panel" ] []
   else
-    Html.text ""
+    Html.Extra.none

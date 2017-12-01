@@ -157,6 +157,72 @@ body {
       border-radius: 30px;
     }
   }
+
+  .featured {
+    @extend .padding-top-small;
+    h2 {
+      @extend .padding-horizontal-gigantic;
+      color: $light-grey;
+      font-size: 0.6rem;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    h1 {
+      @extend .padding-all-gigantic;
+      color: $dark-grey;
+      padding-top: 0;
+      padding-bottom: $medium;
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .cover-featured-album {
+      @extend .column;
+      padding: $xtiny;
+
+      &:first-child {
+        padding-left: $gigantic;
+      }
+
+      &:last-child {
+        padding-right: $gigantic;
+      }
+
+      img {
+        width: 12.5rem;
+        border-radius: 5px;
+        box-shadow: 10px 10px 50px -30px rgba(0,0,0,0.5);
+      }
+
+      h3 {
+        padding-top: $small;
+        padding-bottom: 0;
+        margin: 0;
+        color: $dark-grey;
+        padding-left: $tiny;
+        font-size: 0.9rem;
+        max-width: 12.25rem;
+      }
+
+      h4 {
+        padding-top: $xxxtiny;
+        padding-bottom: 0;
+        margin: 0;
+        color: $light-grey;
+        padding-left: $tiny;
+        font-size: 0.6rem;
+        font-weight: 500;
+        max-width: 12.25rem;
+      }
+
+    }
+  }
+
+  .separator {
+    @extend .margin-vertical-medium;
+    border-color: rgba($light-grey, 0.05);
+  }
 }
 
 .reading-panel {
