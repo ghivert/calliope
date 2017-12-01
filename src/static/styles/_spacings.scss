@@ -29,32 +29,36 @@ $spacing-size: (
 
 @function get-spacer-selector($direction) {
   @if $direction == "all" {
-    @return ""
+    @return "";
   } @else if $direction == "horizontal" {
-    @return ""
+    @return "";
   } @else if $direction == "vertical" {
-    @return ""
+    @return "";
   } @else {
-    @return "-#{$direction}"
+    @return "-#{$direction}";
   };
 };
 
-@function get-spacer-value($direction) {
-  @if $direction == "all" {
-    .#{$spacer}-#{$direction}-#{$size-name} {
-      #{$spacer}#{get-spacer-selector($direction)}: #{$size-value};
-    }
+@function get-spacer-value($direction, $size-value) {
+  @if $direction == "horizontal" {
+    @return "0 #{$size-value}";
+  } @else if $direction == "vertical" {
+    @return "#{$size-value} 0";
+  } @else {
+    @return $size-value;
   }
-}
+};
 
 @mixin spacers {
   @each $spacer in "padding", "margin" {
     @each $direction in $spacing-direction {
       @each $size-name, $size-value in $spacing-size {
-        @return get-spacer-value($direction);
+        .#{$spacer}-#{$direction}-#{$size-name} {
+          #{$spacer}#{get-spacer-selector($direction)}: #{get-spacer-value($direction, $size-value)};
+        }
       }
     }
   }
-}
+};
 
 @include spacers;
