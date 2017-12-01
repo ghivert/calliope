@@ -71,11 +71,29 @@ body {
     }
 
     .music {
+      @extend .grid;
       padding: $medium 0 $huge 0;
-      display: grid;
       grid-template-columns: $huge 1fr;
       grid-template-rows: repeat(4, 1fr);
       grid-gap: 12px;
+    }
+
+    .playlists {
+      background-color: $light-grey;
+    }
+
+    .add-playlist {
+      @extend .grid;
+      padding: $medium 0 $huge 0;
+      grid-template-columns: $huge 1fr;
+      grid-template-rows: 1fr;
+      grid-gap: 12px;
+
+      span {
+        @extend .dark-grey-text;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
     }
   }
 
@@ -119,7 +137,6 @@ body {
 .grey-text {
   color: $darker-light-grey;
 }
-
 
 .light-grey {
   background-color: $lighter-grey;

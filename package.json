@@ -1,9 +1,9 @@
 {
-  "name": "calliope",
+  "name": "@ghivert/debussy",
   "version": "1.0.0",
   "description": "Music Player",
   "main": "main.js",
-  "repository": "git@github.com:ghivert/calliope.git",
+  "repository": "git@github.com:ghivert/debussy.git",
   "author": "Guillaume Hivert <hivert.is.coming@gmail.com>",
   "license": "MIT",
   "private": true,

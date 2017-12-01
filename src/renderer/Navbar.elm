@@ -122,11 +122,7 @@ playlistsView model =
       []
     , Html.div
       [ Html.Attributes.class "add-playlist" ]
-      [ Html.i
-        [ Html.Attributes.class "padding-right-medium fa fa-plus" ]
-        []
-      , Html.span [] [ Html.text "New playlist…" ]
-      ]
+      (musicLabeledIcon 1 "fa-plus" "New playlist...")
     ]
 
 coverAlbumView : Model -> Html Msg

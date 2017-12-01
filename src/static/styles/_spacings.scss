@@ -28,16 +28,14 @@ $spacing-size: (
 );
 
 @function get-spacer-selector($direction) {
-  @if $direction == "all" {
-    @return "";
-  } @else if $direction == "horizontal" {
-    @return "";
-  } @else if $direction == "vertical" {
+  @if $direction == "all"
+    or $direction == "horizontal"
+    or $direction == "vertical" {
     @return "";
   } @else {
     @return "-#{$direction}";
-  };
-};
+  }
+}
 
 @function get-spacer-value($direction, $size-value) {
   @if $direction == "horizontal" {
@@ -47,7 +45,7 @@ $spacing-size: (
   } @else {
     @return $size-value;
   }
-};
+}
 
 @mixin spacers {
   @each $spacer in "padding", "margin" {
@@ -59,6 +57,6 @@ $spacing-size: (
       }
     }
   }
-};
+}
 
 @include spacers;

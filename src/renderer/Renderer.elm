@@ -2,10 +2,11 @@ module Renderer exposing (..)
 
 import Html exposing (Html)
 import Html.Attributes
--- import Html.Events
+import Html.Events
+import Rocket exposing ((=>))
+import Update.Extra as Update
 import Types exposing (..)
 import Navbar
-import Rocket exposing ((=>))
 
 main : Program Never Model Msg
 main =
@@ -21,8 +22,12 @@ init =
   { playQueueDisplayed = False } ! []
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update msg model =
-  model ! []
+update msg ({ playQueueDisplayed } as model) =
+  case msg of
+    TogglePlayQueue ->
+      model
+        |> setPlayQueueDisplayed (not playQueueDisplayed)
+        |> Update.identity
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -45,6 +50,7 @@ mainView { playQueueDisplayed } =
       [ "full white main-panel" => True
       , "til-the-end" => not playQueueDisplayed
       ]
+    , Html.Events.onClick TogglePlayQueue
     ]
     []
 
