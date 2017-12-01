@@ -9,3 +9,4 @@ setPlayQueueDisplayed value model =
 
 type Msg
   = TogglePlayQueue
+  | AddPlaylist

@@ -1,7 +1,8 @@
-module Navbar exposing (view)
+module View.Navbar exposing (view)
 
 import Html exposing (Html)
 import Html.Attributes
+import Html.Events
 import Types exposing (..)
 import Rocket exposing ((=>))
 
@@ -61,8 +62,8 @@ roomView model =
       ]
     ]
 
-musicIcon : Int -> String -> Html Msg
-musicIcon rowIn icon =
+itemIcon : Int -> String -> Html Msg
+itemIcon rowIn icon =
   let row = toString rowIn in
   Html.div
     [ Html.Attributes.style
@@ -77,8 +78,8 @@ musicIcon rowIn icon =
       []
     ]
 
-musicLabel : Int -> String -> Html Msg
-musicLabel rowIn label =
+itemLabel : Int -> String -> Html Msg
+itemLabel rowIn label =
   let row = toString rowIn in
   Html.div
     [ Html.Attributes.class "dark-grey-text"
@@ -93,10 +94,10 @@ musicLabel rowIn label =
     ]
     [ Html.text label ]
 
-musicLabeledIcon : Int -> String -> String -> List (Html Msg)
-musicLabeledIcon row icon label =
-  [ musicIcon  row icon
-  , musicLabel row label
+itemLabeledIcon : Int -> String -> String -> List (Html Msg)
+itemLabeledIcon row icon label =
+  [ itemIcon  row icon
+  , itemLabel row label
   ]
 
 musicNavbar : Model -> Html Msg
@@ -106,10 +107,10 @@ musicNavbar model =
     , Html.div
       [ Html.Attributes.class "music" ]
       <| List.concat
-        [ musicLabeledIcon 1 "fa-music" "Songs"
-        , musicLabeledIcon 2 "fa-square" "Albums"
-        , musicLabeledIcon 3 "fa-microphone" "Artists"
-        , musicLabeledIcon 4 "fa-heart" "Liked"
+        [ itemLabeledIcon 1 "fa-music" "Songs"
+        , itemLabeledIcon 2 "fa-square" "Albums"
+        , itemLabeledIcon 3 "fa-microphone" "Artists"
+        , itemLabeledIcon 4 "fa-heart" "Liked"
         ]
     ]
 
@@ -121,8 +122,10 @@ playlistsView model =
       [ Html.Attributes.class "playlists" ]
       []
     , Html.div
-      [ Html.Attributes.class "add-playlist" ]
-      (musicLabeledIcon 1 "fa-plus" "New playlist...")
+      [ Html.Attributes.class "add-playlist"
+      , Html.Events.onClick AddPlaylist
+      ]
+      (itemLabeledIcon 1 "fa-plus" "New playlist...")
     ]
 
 coverAlbumView : Model -> Html Msg

@@ -6,7 +6,8 @@ import Html.Events
 import Rocket exposing ((=>))
 import Update.Extra as Update
 import Types exposing (..)
-import Navbar
+import View.Navbar
+import View.Main
 
 main : Program Never Model Msg
 main =
@@ -28,6 +29,8 @@ update msg ({ playQueueDisplayed } as model) =
       model
         |> setPlayQueueDisplayed (not playQueueDisplayed)
         |> Update.identity
+    AddPlaylist ->
+      model ! []
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -37,14 +40,14 @@ view : Model -> Html Msg
 view model =
   Html.div
     [ Html.Attributes.class "layout" ]
-    [ Navbar.view model
+    [ View.Navbar.view model
     , mainView model
     , readingView model
     , playQueueView model
     ]
 
 mainView : Model -> Html Msg
-mainView { playQueueDisplayed } =
+mainView ({ playQueueDisplayed } as model) =
   Html.div
     [ Html.Attributes.classList
       [ "full white main-panel" => True
@@ -52,7 +55,7 @@ mainView { playQueueDisplayed } =
       ]
     , Html.Events.onClick TogglePlayQueue
     ]
-    []
+    [ View.Main.view model ]
 
 readingView : Model -> Html Msg
 readingView { playQueueDisplayed } =
