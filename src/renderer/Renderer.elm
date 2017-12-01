@@ -53,7 +53,6 @@ mainView ({ playQueueDisplayed } as model) =
       [ "full white main-panel" => True
       , "til-the-end" => not playQueueDisplayed
       ]
-    , Html.Events.onClick TogglePlayQueue
     ]
     [ View.Main.view model ]
 

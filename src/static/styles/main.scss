@@ -113,6 +113,50 @@ body {
 .main-panel {
   grid-column: 2 / 2;
   grid-row: 1 / 1;
+
+  .header {
+    @extend .flex;
+    @extend .align-center;
+    @extend .padding-all-gigantic;
+    justify-content: space-between;
+
+    .omnisearch {
+      font-size: 0.8rem;
+      input {
+        padding: $xtiny $medium;
+        border-radius: 30px;
+        border: 1px solid rgba($light-grey, 0.3);
+        outline: none;
+        color: $darker-light-grey;
+        min-width: 15rem;
+
+        &:focus {
+          border: 1px solid rgba($light-grey, 0.8);
+          color: $lighter-dark-grey;
+        }
+      }
+
+      &::after {
+        color: $light-grey;
+        font-family: 'FontAwesome';
+        position: relative;
+        right: 1.5rem;
+        content: "\f002";
+      }
+    }
+
+    .profile-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .profile-picture {
+      @extend .margin-horizontal-medium;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 30px;
+    }
+  }
 }
 
 .reading-panel {
