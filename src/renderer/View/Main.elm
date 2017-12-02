@@ -3,6 +3,8 @@ module View.Main exposing (view)
 import Html exposing (Html)
 import Html.Attributes
 import Html.Extra
+import Time exposing (Time)
+import Rocket exposing ((=>))
 import Types exposing (..)
 
 view : Model -> Html Msg
@@ -11,6 +13,7 @@ view model =
     [ header model
     , featured model
     , Html.Extra.separator
+    , playlists model
     ]
 
 header : Model -> Html Msg
@@ -107,10 +110,10 @@ circa =
 coverFeaturedAlbums : List (Html Msg)
 coverFeaturedAlbums =
   [ muse
-  , spiritualized
   , tryo
-  , zedd
   , circa
+  , zedd
+  , spiritualized
   ]
     |> List.map toCoverAlbum
 
@@ -126,3 +129,74 @@ coverAlbum url albumName groupName =
     , Html.h3 [] [ Html.text albumName ]
     , Html.h4 [] [ Html.text groupName ]
     ]
+
+playlists : Model -> Html Msg
+playlists model =
+  Html.div
+    [ Html.Attributes.class "playlists" ]
+    [ Html.h2 [] [ Html.text "Playlists" ]
+    , Html.h1 [] [ Html.text "Recently Added" ]
+    , playlistContent model
+    ]
+
+playlistExample : List Song
+playlistExample =
+  [ "Dead Inside"
+  , "[Drill Sergeant]"
+  , "Psycho"
+  , "Mercy"
+  , "Reapers"
+  , "The Handler"
+  , "[JFK]"
+  , "Defector"
+  , "Revolt"
+  , "Aftermath"
+  , "The Globalist"
+  , "Drones"
+  ]
+    |> List.map toMuseAlbum
+
+toMuseAlbum : String -> Song
+toMuseAlbum title =
+  Song title "Drones" "Muse" "images/muse-cover.jpg" Nothing
+
+playlistContent : Model -> Html Msg
+playlistContent model =
+  Html.div
+    [ Html.Attributes.class "playlist-content"
+    , Html.Attributes.style
+      [ "grid-template-columns" => "repeat(6, minmax(50px, 1fr))" ]
+    ]
+    <| List.concat
+      [ headerPlaylistContent model
+      , List.concatMap toPlaylistTrack playlistExample
+      ]
+
+headerPlaylistContent : Model -> List (Html Msg)
+headerPlaylistContent model =
+  [ Html.div [] [] -- First case of the grid : empty.
+  , Html.h2 [] [ Html.text "Title" ]
+  , Html.h2 [] [ Html.text "Artist" ]
+  , Html.h2 [] [ Html.text "Album" ]
+  , Html.h2 [] [ Html.text "Added" ]
+  , Html.h2 [] [ Html.text "Duration" ]
+  ]
+
+type alias Song =
+  { title : String
+  , album : String
+  , artist : String
+  , cover : Url
+  , duration : Maybe Time
+  }
+
+toPlaylistTrack : Song -> List (Html Msg)
+toPlaylistTrack { title, album, artist, cover, duration } =
+  [ Html.img [ Html.Attributes.src cover ] []
+  , Html.text title
+  , Html.text artist
+  , Html.text album
+  , Html.text ""
+  , Html.text <| toString duration
+  ]
+    |> List.map (Html.div [] << List.singleton)
