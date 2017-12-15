@@ -51,11 +51,11 @@ mainView : Model -> Html Msg
 mainView ({ playQueueDisplayed } as model) =
   Html.div
     [ Html.Attributes.classList
-      [ "full white main-panel" => True
+      [ "white main-panel" => True
       , "til-the-end" => not playQueueDisplayed
       ]
     ]
-    [ View.Main.view model ]
+    (View.Main.view model)
 
 readingView : Model -> Html Msg
 readingView { playQueueDisplayed } =

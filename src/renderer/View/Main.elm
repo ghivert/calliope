@@ -7,14 +7,14 @@ import Time exposing (Time)
 import Rocket exposing ((=>))
 import Types exposing (..)
 
-view : Model -> Html Msg
+view : Model -> List (Html Msg)
 view model =
-  Html.div []
-    [ header model
-    , featured model
-    , Html.Extra.separator
-    , playlists model
-    ]
+  [ header model
+  , featured model
+  , Html.Extra.separator
+  , playlistsLabel model
+  , playlistsContent model
+  ]
 
 header : Model -> Html Msg
 header model =
@@ -130,47 +130,54 @@ coverAlbum url albumName groupName =
     , Html.h4 [] [ Html.text groupName ]
     ]
 
-playlists : Model -> Html Msg
-playlists model =
+playlistsLabel : Model -> Html Msg
+playlistsLabel model =
   Html.div
     [ Html.Attributes.class "playlists" ]
-    [ Html.h2 [] [ Html.text "Playlists" ]
-    , Html.h1 [] [ Html.text "Recently Added" ]
-    , playlistContent model
-    ]
+    <| List.append
+      [ Html.h2 [] [ Html.text "Playlists" ]
+      , Html.h1 [] [ Html.text "Recently Added" ]
+      ]
+      [ Html.div
+        [ Html.Attributes.style
+          [ "grid-template-columns" => "75px 150px 100px 100px 100px 1fr"
+          , "grid-template-rows" => "30px"
+          , "display" => "grid"
+          ]
+        ]
+        (headerPlaylistContent model)
+      ]
 
-playlistExample : List Song
+
+playlistExample : List (Song, Bool)
 playlistExample =
-  [ "Dead Inside"
-  , "[Drill Sergeant]"
-  , "Psycho"
-  , "Mercy"
-  , "Reapers"
-  , "The Handler"
-  , "[JFK]"
-  , "Defector"
-  , "Revolt"
-  , "Aftermath"
-  , "The Globalist"
-  , "Drones"
+  [ "Dead Inside" => False
+  , "[Drill Sergeant]" => True
+  , "Psycho" => False
+  , "Mercy" => False
+  , "Reapers" => False
+  , "The Handler" => False
+  , "[JFK]" => False
+  , "Defector" => False
+  , "Revolt" => False
+  , "Aftermath" => False
+  , "The Globalist" => False
+  , "Drones" => False
   ]
     |> List.map toMuseAlbum
 
-toMuseAlbum : String -> Song
-toMuseAlbum title =
-  Song title "Drones" "Muse" "images/muse-cover.jpg" Nothing
+toMuseAlbum : (String, Bool) -> (Song, Bool)
+toMuseAlbum (title, active) =
+  (Song title "Drones" "Muse" "images/muse-cover.jpg" Nothing, active)
 
-playlistContent : Model -> Html Msg
-playlistContent model =
+playlistsContent : Model -> Html Msg
+playlistsContent model =
   Html.div
-    [ Html.Attributes.class "playlist-content"
+    [ Html.Attributes.class "playlists-content"
     , Html.Attributes.style
-      [ "grid-template-columns" => "repeat(6, minmax(50px, 1fr))" ]
+      [ "grid-template-columns" => "75px 150px 100px 100px 100px 1fr" ]
     ]
-    <| List.concat
-      [ headerPlaylistContent model
-      , List.concatMap toPlaylistTrack playlistExample
-      ]
+    <| List.concatMap toPlaylistTrack playlistExample
 
 headerPlaylistContent : Model -> List (Html Msg)
 headerPlaylistContent model =
@@ -190,13 +197,49 @@ type alias Song =
   , duration : Maybe Time
   }
 
-toPlaylistTrack : Song -> List (Html Msg)
-toPlaylistTrack { title, album, artist, cover, duration } =
-  [ Html.img [ Html.Attributes.src cover ] []
-  , Html.text title
+addActiveIfActive : Bool -> Html Msg -> Html Msg
+addActiveIfActive active =
+  Html.div
+    [ Html.Attributes.classList [ "active-middle" => active ]
+    , Html.Attributes.style
+      [ "display" => "flex"
+      , "flex-direction" => "column"
+      , "justify-content" => "center"
+      , "height" => "100%"
+      ]
+    ]
+    << List.singleton
+
+toPlaylistTrack : (Song, Bool) -> List (Html Msg)
+toPlaylistTrack ({ title, album, artist, cover, duration }, active) =
+  [ Html.text title
   , Html.text artist
   , Html.text album
   , Html.text ""
-  , Html.text <| toString duration
   ]
-    |> List.map (Html.div [] << List.singleton)
+    |> List.map (addActiveIfActive active)
+    |> List.append
+      [ Html.div
+        [ Html.Attributes.classList [ "active-beginning" => active ]
+        , Html.Attributes.style
+          [ "padding" => "0.1rem"
+          , "display" => "flex"
+          , "flex-direction" => "column"
+          , "justify-content" => "center"
+          , "align-items" => "center"
+          ]
+        ]
+        [ Html.img [ Html.Attributes.src cover ] [] ]
+      ]
+    |> flip List.append
+      [ Html.div
+        [ Html.Attributes.classList [ "active-end" => active ]
+        , Html.Attributes.style
+          [ "display" => "flex"
+          , "flex-direction" => "column"
+          , "justify-content" => "center"
+          , "height" => "100%"
+          ]
+        ]
+        [ Html.text <| toString duration ]
+      ]
