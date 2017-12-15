@@ -11,8 +11,7 @@ view model =
   Html.nav
     [ Html.Attributes.class "navbar" ]
     [ textualElements
-      [ roomView model
-      , musicNavbar model
+      [ musicNavbar model
       , playlistsView model
       ]
     , coverAlbumView model
