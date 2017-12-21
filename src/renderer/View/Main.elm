@@ -148,7 +148,6 @@ playlistsLabel model =
         (headerPlaylistContent model)
       ]
 
-
 playlistExample : List (Song, Bool)
 playlistExample =
   [ "Dead Inside" => False

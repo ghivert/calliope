@@ -6,7 +6,9 @@ import Html.Attributes
 import Html.Extra
 import Rocket exposing ((=>))
 import Update.Extra as Update
+
 import Types exposing (..)
+import Route
 import View.Navbar
 import View.Main
 
@@ -21,7 +23,10 @@ main =
 
 init : (Model, Cmd Msg)
 init =
-  { playQueueDisplayed = False } ! []
+  { playQueueDisplayed = False
+  , route = Route.Home
+  , songs = []
+  } ! []
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg ({ playQueueDisplayed } as model) =
@@ -32,6 +37,10 @@ update msg ({ playQueueDisplayed } as model) =
         |> Update.identity
     AddPlaylist ->
       model ! []
+    Navigation route ->
+      model
+        |> setRoute route
+        |> Update.identity
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
@@ -48,7 +57,25 @@ view model =
     ]
 
 mainView : Model -> Html Msg
-mainView ({ playQueueDisplayed } as model) =
+mainView ({ route } as model) =
+  case route of
+    Route.Home ->
+      homeView model
+    Route.Artist id ->
+      Html.Extra.none
+    Route.Artists ->
+      Html.Extra.none
+    Route.Songs ->
+      songView model
+    Route.Albums ->
+      Html.Extra.none
+    Route.Liked ->
+      Html.Extra.none
+    Route.NotFound ->
+      Html.Extra.none
+
+homeView : Model -> Html Msg
+homeView ({ playQueueDisplayed } as model) =
   Html.div
     [ Html.Attributes.classList
       [ "white main-panel" => True
@@ -56,6 +83,10 @@ mainView ({ playQueueDisplayed } as model) =
       ]
     ]
     (View.Main.view model)
+
+songView : Model -> Html Msg
+songView ({ songs } as model) =
+  Html.Extra.none
 
 readingView : Model -> Html Msg
 readingView { playQueueDisplayed } =
